@@ -18,7 +18,7 @@ public class Group {
     private int id;
     @Column(name = "name")
     private String name;
-    @Column(name = "group_number")
+    @Column(name = "group_number", unique = true)
     private int groupNumber;
 
 }

@@ -1,5 +1,6 @@
 package com.softgen.schooldms.service.impl;
 
+import com.softgen.schooldms.exception.ApplicationException;
 import com.softgen.schooldms.model.dto.GroupDto;
 import com.softgen.schooldms.model.entity.Group;
 import com.softgen.schooldms.repository.GroupRepository;
@@ -18,14 +19,14 @@ public class GroupServiceImpl implements GroupService {
 
     private final GroupRepository groupRepository;
     private final ModelMapper modelMapper;
+    private final String GROUP = "group";
 
 
     @Override
     public GroupDto searchGroup(int groupNumber) {
         Optional<Group> optionalGroup = groupRepository.findByGroupNumber(groupNumber);
-        return optionalGroup.map(g -> modelMapper.map(g, GroupDto.class)).orElseThrow(
-//                new Exception("")
-        );
+        return optionalGroup.map(g -> modelMapper.map(g, GroupDto.class))
+                .orElseThrow(() -> new ApplicationException.EntryNotFoundException(GROUP, groupNumber));
     }
 
     @Override
