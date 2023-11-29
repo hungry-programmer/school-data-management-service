@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,5 +22,10 @@ public class Group {
     private String name;
     @Column(name = "group_number", unique = true)
     private int groupNumber;
+    @ManyToOne
+    @JoinColumn(name = "teacher_id")
+    private Teacher teacher;
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
+    private List<Student> students;
 
 }

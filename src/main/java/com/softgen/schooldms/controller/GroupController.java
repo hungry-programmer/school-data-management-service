@@ -1,5 +1,7 @@
 package com.softgen.schooldms.controller;
 
+import com.softgen.schooldms.model.dto.AddStudentsDto;
+import com.softgen.schooldms.model.dto.AssignTeacherDto;
 import com.softgen.schooldms.model.dto.GroupDto;
 import com.softgen.schooldms.service.GroupService;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +34,18 @@ public class GroupController {
     @DeleteMapping("/{id}")
     public ResponseEntity deleteGroup(@PathVariable int id) {
         groupService.deleteGroup(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{groupId}/teacher")
+    public ResponseEntity assignTeacher(@PathVariable int groupId, @RequestBody AssignTeacherDto request) {
+        groupService.assignTeacher(groupId, request);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{groupId}/students")
+    public ResponseEntity addStudents(@PathVariable int groupId, @RequestBody AddStudentsDto request) {
+        groupService.addStudents(groupId, request);
         return ResponseEntity.ok().build();
     }
 

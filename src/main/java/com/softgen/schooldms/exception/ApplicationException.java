@@ -6,10 +6,10 @@ public class ApplicationException extends RuntimeException {
     }
 
     public static class EntryNotFoundException extends ApplicationException {
-        public EntryNotFoundException(String entryType, int entryId) {
+        public EntryNotFoundException(String entryType) {
             super("""
-                    No %s entry found with number %d.
-                    """.formatted(entryType, entryId));
+                    No %s entry found with provided argument.
+                    """.formatted(entryType));
         }
     }
 

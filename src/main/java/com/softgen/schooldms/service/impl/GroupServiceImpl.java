@@ -1,6 +1,8 @@
 package com.softgen.schooldms.service.impl;
 
 import com.softgen.schooldms.exception.ApplicationException;
+import com.softgen.schooldms.model.dto.AddStudentsDto;
+import com.softgen.schooldms.model.dto.AssignTeacherDto;
 import com.softgen.schooldms.model.dto.GroupDto;
 import com.softgen.schooldms.model.entity.Group;
 import com.softgen.schooldms.repository.GroupRepository;
@@ -25,8 +27,9 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public GroupDto searchGroup(int groupNumber) {
         Optional<Group> optionalGroup = groupRepository.findByGroupNumber(groupNumber);
+
         return optionalGroup.map(g -> modelMapper.map(g, GroupDto.class))
-                .orElseThrow(() -> new ApplicationException.EntryNotFoundException(GROUP, groupNumber));
+                .orElseThrow(() -> new ApplicationException.EntryNotFoundException(GROUP));
     }
 
     @Override
@@ -41,7 +44,8 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public GroupDto modifyGroup(GroupDto request) {
         Group existingGroup = groupRepository.findById(request.getId())
-                .orElseThrow();
+                .orElseThrow(() -> new ApplicationException.EntryNotFoundException(GROUP));
+
         modelMapper.map(request, existingGroup);
         Group updatedGroup = groupRepository.save(existingGroup);
 
@@ -52,9 +56,21 @@ public class GroupServiceImpl implements GroupService {
     public void deleteGroup(int id) {
         groupRepository.findById(id).ifPresentOrElse(
                 groupRepository::delete,
-                () -> {
-//                    throw new EmptyResultDataAccessException("Class not found with ID: " + id, 1);
-                }
+                () -> new ApplicationException.EntryNotFoundException(GROUP)
         );
+    }
+
+    @Override
+    public void assignTeacher(int groupId, AssignTeacherDto request) {
+        Group group = groupRepository.findById(groupId)
+                .orElseThrow(() -> new ApplicationException.EntryNotFoundException(GROUP));
+
+
+    }
+
+    @Override
+    public void addStudents(int groupId, AddStudentsDto request) {
+        Group group = groupRepository.findById(groupId)
+                .orElseThrow(() -> new ApplicationException.EntryNotFoundException(GROUP));
     }
 }
