@@ -1,15 +1,16 @@
-package com.softgen.schooldms.model.dto;
+package com.softgen.schooldms.model.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class PersonDto {
+public class CreatePersonRequest {
 
     private Integer id;
 
@@ -21,6 +22,7 @@ public class PersonDto {
 
     private Long idNumber;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime birthDate;
 
     @Email(message = "Invalid email format")

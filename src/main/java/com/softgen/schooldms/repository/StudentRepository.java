@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Integer> {
 
-    List<Student> findByFirstnameContainingAndLastnameContainingAndIdNumberAndBirthDate(
+    List<Student> findAllByFirstnameContainingOrLastnameContainingOrIdNumberOrBirthDate(
             String firstname,
             String lastname,
             Long idNumber,

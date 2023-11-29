@@ -1,9 +1,9 @@
-package com.softgen.schooldms.model.dto;
+package com.softgen.schooldms.model.dto.request;
 
 import lombok.Data;
 
 @Data
-public class GroupDto {
+public class CreateGroupRequest {
 
     private Integer id;
     private String name;

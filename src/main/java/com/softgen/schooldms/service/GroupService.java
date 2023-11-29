@@ -1,21 +1,22 @@
 package com.softgen.schooldms.service;
 
-import com.softgen.schooldms.model.dto.AddStudentsDto;
-import com.softgen.schooldms.model.dto.AssignTeacherDto;
-import com.softgen.schooldms.model.dto.GroupDto;
+import com.softgen.schooldms.model.dto.request.AddStudentsRequest;
+import com.softgen.schooldms.model.dto.request.AssignTeacherRequest;
+import com.softgen.schooldms.model.dto.request.CreateGroupRequest;
+import com.softgen.schooldms.model.dto.response.GroupResponse;
 
 public interface GroupService {
 
-    GroupDto searchGroup(int groupNumber);
+    GroupResponse searchGroup(int groupNumber);
 
-    GroupDto createGroup(GroupDto request);
+    GroupResponse createGroup(CreateGroupRequest request);
 
-    GroupDto modifyGroup(GroupDto request);
+    GroupResponse modifyGroup(CreateGroupRequest request);
 
     void deleteGroup(int classId);
 
-    void assignTeacher(int groupId, AssignTeacherDto request);
+    void assignTeacher(int groupNumber, AssignTeacherRequest request);
 
-    void addStudents(int groupId, AddStudentsDto request);
+    void addStudents(int groupNumber, AddStudentsRequest request);
 
 }

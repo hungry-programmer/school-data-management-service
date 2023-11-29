@@ -1,5 +1,6 @@
 package com.softgen.schooldms.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,13 +23,14 @@ public class Student {
     private String firstname;
     @Column(name = "lastname")
     private String lastname;
-    @Column(name = "idNumber", unique = true)
+    @Column(name = "id_number", unique = true)
     private Long idNumber;
     @Column(name = "mail")
     private String mail;
-    @Column(name = "birthDate")
+    @Column(name = "birth_date")
     private LocalDateTime birthDate;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "group_id")
     private Group group;
 

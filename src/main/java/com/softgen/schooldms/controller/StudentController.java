@@ -1,11 +1,12 @@
 package com.softgen.schooldms.controller;
 
 
-import com.softgen.schooldms.model.dto.PersonDto;
+import com.softgen.schooldms.model.dto.request.CreatePersonRequest;
 import com.softgen.schooldms.service.PersonService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,19 +27,20 @@ public class StudentController {
     public ResponseEntity searchStudents(@RequestParam(required = false) String firstname,
                                          @RequestParam(required = false) String lastname,
                                          @RequestParam(required = false) Long idNumber,
+                                         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
                                          @RequestParam(required = false) LocalDateTime birthDate) {
 
         return ResponseEntity.ok(personService.searchPerson(firstname, lastname, idNumber, birthDate));
     }
 
     @PutMapping
-    public ResponseEntity createStudent(@Valid @RequestBody PersonDto request) {
+    public ResponseEntity createStudent(@Valid @RequestBody CreatePersonRequest request) {
 
         return ResponseEntity.ok(personService.createPerson(request));
     }
 
     @PostMapping
-    public ResponseEntity modifyStudent(@Valid @RequestBody PersonDto request) {
+    public ResponseEntity modifyStudent(@Valid @RequestBody CreatePersonRequest request) {
 
         return ResponseEntity.ok(personService.modifyPerson(request));
     }

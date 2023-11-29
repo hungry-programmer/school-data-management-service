@@ -1,9 +1,10 @@
 package com.softgen.schooldms.controller;
 
-import com.softgen.schooldms.model.dto.AddStudentsDto;
-import com.softgen.schooldms.model.dto.AssignTeacherDto;
-import com.softgen.schooldms.model.dto.GroupDto;
+import com.softgen.schooldms.model.dto.request.AddStudentsRequest;
+import com.softgen.schooldms.model.dto.request.AssignTeacherRequest;
+import com.softgen.schooldms.model.dto.request.CreateGroupRequest;
 import com.softgen.schooldms.service.GroupService;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +23,12 @@ public class GroupController {
     }
 
     @PutMapping
-    public ResponseEntity createGroup(@RequestBody GroupDto request) {
+    public ResponseEntity createGroup(@RequestBody CreateGroupRequest request) {
         return ResponseEntity.ok(groupService.createGroup(request));
     }
 
     @PostMapping
-    public ResponseEntity modifyGroup(@RequestBody GroupDto request) {
+    public ResponseEntity modifyGroup(@RequestBody CreateGroupRequest request) {
         return ResponseEntity.ok(groupService.modifyGroup(request));
     }
 
@@ -37,15 +38,15 @@ public class GroupController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/{groupId}/teacher")
-    public ResponseEntity assignTeacher(@PathVariable int groupId, @RequestBody AssignTeacherDto request) {
-        groupService.assignTeacher(groupId, request);
+    @PostMapping("/{groupNumber}/teacher")
+    public ResponseEntity assignTeacher(@PathVariable int groupNumber, @RequestBody AssignTeacherRequest request) {
+        groupService.assignTeacher(groupNumber, request);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/{groupId}/students")
-    public ResponseEntity addStudents(@PathVariable int groupId, @RequestBody AddStudentsDto request) {
-        groupService.addStudents(groupId, request);
+    @PostMapping("/{groupNumber}/students")
+    public ResponseEntity addStudents(@PathVariable int groupNumber, @RequestBody AddStudentsRequest request) {
+        groupService.addStudents(groupNumber, request);
         return ResponseEntity.ok().build();
     }
 
